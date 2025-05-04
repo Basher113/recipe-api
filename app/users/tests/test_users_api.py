@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
 from rest_framework import status
 
-CREATE_USER_URL = reverse('user:create')
+CREATE_USER_URL = reverse('users:create')
 
 
 class PublicUserApiTests(TestCase):
@@ -20,7 +20,7 @@ class PublicUserApiTests(TestCase):
             "password": "test123",
             "name": "test"
         }
-        res = self.client(CREATE_USER_URL, params)
+        res = self.client.post(CREATE_USER_URL, params)
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         user = get_user_model().objects.get(email=params["email"])
 
